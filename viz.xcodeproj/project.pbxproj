@@ -1,0 +1,361 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CC1D90F6460CB002E6409 /* RecordStream.m */; };
+		3D93F8850F5CA672008EDBC0 /* VizAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93F8840F5CA672008EDBC0 /* VizAppDelegate.m */; };
+		3D93F88C0F5CB0FB008EDBC0 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93F88B0F5CB0FB008EDBC0 /* DataSource.m */; };
+		3D93F8A00F5CBA61008EDBC0 /* DataSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93F89F0F5CBA61008EDBC0 /* DataSourceController.m */; };
+		3D93FB230F5DA0F7008EDBC0 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 3D93FB220F5DA0F7008EDBC0 /* README */; };
+		3D93FF0C0F5F378E008EDBC0 /* DataSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D93FF0A0F5F378E008EDBC0 /* DataSource.xib */; };
+		3D93FF430F5F486F008EDBC0 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D93FF410F5F486F008EDBC0 /* Quartz.framework */; };
+		3D93FF440F5F486F008EDBC0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D93FF420F5F486F008EDBC0 /* QuartzCore.framework */; };
+		3D93FFDD0F5F9E9D008EDBC0 /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93FFDC0F5F9E9D008EDBC0 /* DataView.m */; };
+		3DC3499B0F5B07900048CCDD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC349990F5B07900048CCDD /* MainMenu.xib */; };
+		3DC349C70F5B64940048CCDD /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC349C60F5B64940048CCDD /* Record.m */; };
+		3DF3E82B0F64BE4500012E78 /* Checkpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3E82A0F64BE4500012E78 /* Checkpoint.m */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* viz_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viz_Prefix.pch; sourceTree = "<group>"; };
+		3D4CC1D90F6460CB002E6409 /* RecordStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordStream.m; sourceTree = "<group>"; };
+		3D93018A0F606447008EDBC0 /* RecordStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordStream.h; sourceTree = "<group>"; };
+		3D93F8830F5CA672008EDBC0 /* VizAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VizAppDelegate.h; sourceTree = "<group>"; };
+		3D93F8840F5CA672008EDBC0 /* VizAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VizAppDelegate.m; sourceTree = "<group>"; };
+		3D93F88A0F5CB0FB008EDBC0 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		3D93F88B0F5CB0FB008EDBC0 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		3D93F89E0F5CBA61008EDBC0 /* DataSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSourceController.h; sourceTree = "<group>"; };
+		3D93F89F0F5CBA61008EDBC0 /* DataSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSourceController.m; sourceTree = "<group>"; };
+		3D93FB220F5DA0F7008EDBC0 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		3D93FB310F5DAA2A008EDBC0 /* viz.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = viz.sh; sourceTree = "<group>"; };
+		3D93FF0B0F5F378E008EDBC0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DataSource.xib; sourceTree = "<group>"; };
+		3D93FF410F5F486F008EDBC0 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		3D93FF420F5F486F008EDBC0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		3D93FFDB0F5F9E9D008EDBC0 /* DataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataView.h; sourceTree = "<group>"; };
+		3D93FFDC0F5F9E9D008EDBC0 /* DataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataView.m; sourceTree = "<group>"; };
+		3DC3499A0F5B07900048CCDD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3DC349C50F5B64940048CCDD /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
+		3DC349C60F5B64940048CCDD /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		3DF3E8290F64BE4500012E78 /* Checkpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkpoint.h; sourceTree = "<group>"; };
+		3DF3E82A0F64BE4500012E78 /* Checkpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkpoint.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* viz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = viz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				3D93FF430F5F486F008EDBC0 /* Quartz.framework in Frameworks */,
+				3D93FF440F5F486F008EDBC0 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3E8290F64BE4500012E78 /* Checkpoint.h */,
+				3DF3E82A0F64BE4500012E78 /* Checkpoint.m */,
+				3D93018A0F606447008EDBC0 /* RecordStream.h */,
+				3D4CC1D90F6460CB002E6409 /* RecordStream.m */,
+				3DC349C50F5B64940048CCDD /* Record.h */,
+				3DC349C60F5B64940048CCDD /* Record.m */,
+				3D93F89E0F5CBA61008EDBC0 /* DataSourceController.h */,
+				3D93F89F0F5CBA61008EDBC0 /* DataSourceController.m */,
+				3D93F8830F5CA672008EDBC0 /* VizAppDelegate.h */,
+				3D93F8840F5CA672008EDBC0 /* VizAppDelegate.m */,
+				3D93F88A0F5CB0FB008EDBC0 /* DataSource.h */,
+				3D93F88B0F5CB0FB008EDBC0 /* DataSource.m */,
+				3D93FFDB0F5F9E9D008EDBC0 /* DataView.h */,
+				3D93FFDC0F5F9E9D008EDBC0 /* DataView.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D93FF410F5F486F008EDBC0 /* Quartz.framework */,
+				3D93FF420F5F486F008EDBC0 /* QuartzCore.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* viz.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* viz */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				3D93FB220F5DA0F7008EDBC0 /* README */,
+			);
+			name = viz;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3D93FB310F5DAA2A008EDBC0 /* viz.sh */,
+				32CA4F630368D1EE00C91783 /* viz_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3D93FF0A0F5F378E008EDBC0 /* DataSource.xib */,
+				3DC349990F5B07900048CCDD /* MainMenu.xib */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* viz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "viz" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				3D93FB560F5DB50F008EDBC0 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = viz;
+			productInstallPath = "$(HOME)/Applications";
+			productName = viz;
+			productReference = 8D1107320486CEB800E47090 /* viz.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "viz" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* viz */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* viz */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DC3499B0F5B07900048CCDD /* MainMenu.xib in Resources */,
+				3D93FB230F5DA0F7008EDBC0 /* README in Resources */,
+				3D93FF0C0F5F378E008EDBC0 /* DataSource.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D93FB560F5DB50F008EDBC0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p $prefix/bin\ncp viz.sh $prefix/bin/viz\nchmod 755 $prefix/bin/viz";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				3DC349C70F5B64940048CCDD /* Record.m in Sources */,
+				3D93F8850F5CA672008EDBC0 /* VizAppDelegate.m in Sources */,
+				3D93F88C0F5CB0FB008EDBC0 /* DataSource.m in Sources */,
+				3D93F8A00F5CBA61008EDBC0 /* DataSourceController.m in Sources */,
+				3D93FFDD0F5F9E9D008EDBC0 /* DataView.m in Sources */,
+				3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */,
+				3DF3E82B0F64BE4500012E78 /* Checkpoint.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3D93FF0A0F5F378E008EDBC0 /* DataSource.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D93FF0B0F5F378E008EDBC0 /* English */,
+			);
+			name = DataSource.xib;
+			sourceTree = "<group>";
+		};
+		3DC349990F5B07900048CCDD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3DC3499A0F5B07900048CCDD /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = viz_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-DDEBUG";
+				PRODUCT_NAME = viz;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+				prefix = "$(DSTROOT)";
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = viz_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = viz;
+				WRAPPER_EXTENSION = app;
+				prefix = "$(DSTROOT)";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc64,
+					x86_64,
+				);
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc64,
+					x86_64,
+				);
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "viz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "viz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

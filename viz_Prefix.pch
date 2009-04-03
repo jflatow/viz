@@ -1,0 +1,14 @@
+//
+// Prefix header for all source files of the 'viz' target in the 'viz' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#define Log(format, args...) NSLog(format, args)
+#ifdef DEBUG
+#	define DebugLog(format, args...) NSLog(format, args)
+#else
+#	define DebugLog(...) /* None */
+#endif

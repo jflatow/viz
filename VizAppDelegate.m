@@ -1,0 +1,25 @@
+//
+//  VizAppDelegate.m
+//  viz
+//
+//  Created by Jared Flatow on 3/2/09.
+//  Copyright 2009 Jared Flatow. All rights reserved.
+//
+
+#import "VizAppDelegate.h"
+
+@implementation VizAppDelegate
+
+- (IBAction) openDocument:(id) sender {
+  [dataSourceController openDataSource];
+}
+
+- (BOOL) application:(NSApplication *) application openFile:(NSString *) filename {
+  return [dataSourceController openDataSourcesForPaths:[NSArray arrayWithObject:filename]];
+}
+
+- (void) application:(NSApplication *) application openFiles:(NSArray *) filenames {
+  [dataSourceController openDataSourcesForPaths:filenames];
+}
+
+@end
