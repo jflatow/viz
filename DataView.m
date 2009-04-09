@@ -10,17 +10,12 @@
 
 @implementation DataView
 
-- (id) initWithFrame:(NSRect) frame {
-    if (self = [super initWithFrame:frame]) 
-        rootLayer = [CALayer layer];
-    return self;
-}
-
 - (void) awakeFromNib {
+    CALayer *rootLayer;
     CGColorRef bgColor = CGColorCreateGenericRGB(1., 1., 1., .9);
     [[self window] setContentAspectRatio:NSMakeSize(1, 1)];
-    [self setLayer:rootLayer];
     [self setWantsLayer:YES];
+    rootLayer = [self layer];
     [rootLayer setDelegate:self];
     [rootLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
     [rootLayer setBackgroundColor:bgColor];
@@ -41,26 +36,20 @@
     [layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
                                                     relativeTo:@"superlayer"
                                                      attribute:kCAConstraintMaxY]];
-    [rootLayer addSublayer:layer];
-    [layer setFrame:[rootLayer frame]];
-    [layer setNeedsDisplay];
+    [layer setFrame:[[self layer] frame]];
+    [[self layer] addSublayer:layer];
 }
-
 
 - (BOOL) acceptsFirstResponder {
     return YES;
 }
 
 - (void) keyDown:(NSEvent *) theEvent {
-    // Arrow keys are associated with the numeric keypad
-    if ([theEvent modifierFlags] & NSNumericPadKeyMask)
-        [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
-    else
-        [[self nextResponder] keyDown:theEvent];
+    [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 }
 
 - (void) drawLayer:(CALayer *) layer inContext:(CGContextRef) context {
-    // pass
+    // draw root layer
 }
 
 @end

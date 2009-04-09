@@ -7,12 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "DataView.h"
-#import "RecordStream.h"
+
+@class DataView, RecordStream;
 
 @interface DataSource : NSDocument {
     IBOutlet DataView *dataView;
-    
     RecordStream *recordStream;
 }
 

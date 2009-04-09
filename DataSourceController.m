@@ -7,6 +7,7 @@
 //
 
 #import "DataSourceController.h"
+#import "DataSource.h"
 
 @implementation DataSourceController
 
@@ -16,11 +17,11 @@
   [openPanel setAllowsMultipleSelection:YES];
   [openPanel setResolvesAliases:YES];
   [openPanel beginForDirectory:nil
-             file:nil
-             types:nil
-             modelessDelegate:self
-             didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-             contextInfo:nil];
+                          file:nil
+                         types:nil
+              modelessDelegate:self
+                didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
+                   contextInfo:nil];
 }
 
 - (void) openPanelDidEnd:(NSOpenPanel *) panel returnCode:(int) returnCode contextInfo:(void  *) contextInfo {

@@ -22,6 +22,16 @@ static NSUInteger BUFFER_SIZE = 1 << 10;
 }
 
 + (Record *) nextRecordFromFileHandle:(NSFileHandle *) fileHandle {
+    return [[[self class] alloc] initFromFileHandle:fileHandle];
+}
+
+- (Record *) initWithFields:(NSArray *) theFields {
+    if (self = [super init])
+        [self setFields:theFields];
+    return self;
+}
+
+- (Record *) initFromFileHandle:(NSFileHandle *) fileHandle {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSString *recordSeparator = [defaults stringForKey:@"RecordSeparator"];
     NSString *fieldSeparator  = [defaults stringForKey:@"FieldSeparator"];
@@ -36,29 +46,11 @@ static NSUInteger BUFFER_SIZE = 1 << 10;
         if (end == NSNotFound)
             continue;
         [fileHandle seekToFileOffset:[fileHandle offsetInFile] - ([string length] - end) + 1];
-        return [Record recordWithFields:[[string substringToIndex:end] componentsSeparatedByString:fieldSeparator]];
+        return [self initWithFields:[[string substringToIndex:end] componentsSeparatedByString:fieldSeparator]];
     }
     if ([string length])
-        return [Record recordWithFields:[string componentsSeparatedByString:fieldSeparator]];
+        return [self initWithFields:[string componentsSeparatedByString:fieldSeparator]];
     return nil;
-}
-
-+ (Record *) recordWithFields:(NSArray *) theFields {
-    Record *record = [[Record alloc] init];
-    [record setFields:theFields];
-    return record;
-}
-
-- (void) paintInContext:(CGContextRef) context {
-    float value = [[[self fields] objectAtIndex:5] floatValue];
-    value       = value * value;
-    
-    CGContextSetRGBFillColor(context, 0, 0, 1, .2);
-    CGContextSetRGBStrokeColor(context, 1, 0, 0, .2);
-    CGContextBeginPath(context);
-    CGContextAddArc(context, value, value, value, 0, 2 * M_PI, false);
-    CGContextClosePath(context);
-    CGContextDrawPath(context, kCGPathFillStroke);
 }
 
 @end

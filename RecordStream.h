@@ -7,38 +7,41 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
 
-#import "Record.h"
-#import "Checkpoint.h"
+@class Checkpoint, Record, RecordPainter;
+@protocol RecordParsing;
+
+NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger checkpointDistance);
 
 @interface RecordStream : NSObject {
-  NSUInteger index, checkpointDistance;
-  NSMutableArray *checkpoints;
-  NSFileHandle *fileHandle;
-  Class <RecordParsing> recordParser;
-  Record *currentRecord;
-  
-  CGLayerRef graphicsLayer;
-  CALayer *animationLayer;
+    NSUInteger index, checkpointDistance;
+    NSMutableArray *checkpoints;
+    NSFileHandle *fileHandle;
+    Class <RecordParsing> recordParser;
+    RecordPainter *recordPainter;
+    Record *currentRecord;
 }
 
+@property NSUInteger index;
+@property NSFileHandle *fileHandle;
 @property Record *currentRecord;
-@property CGLayerRef graphicsLayer;
-@property CALayer *animationLayer;
+@property RecordPainter *recordPainter;
 
 + (RecordStream *) recordStreamWithPath:(NSString *) path;
 - (RecordStream *) initWithFileHandle:(NSFileHandle *) aFileHandle 
                       andRecordParser:(Class <RecordParsing>) recordParser;
 
-- (void) blink;
-- (void) more;
-- (void) less;
+- (void) first;
+- (void) last;
+- (void) next;
+- (void) prev;
+- (Record *) pullRecord;
+- (BOOL) pullRecords:(NSUInteger) howMany;
 - (void) reset;
+- (void) seekToIndex:(NSUInteger) theIndex;
 
-- (void) pullRecord;
-- (void) pullRecords:(NSUInteger) howMany;
-- (Checkpoint *) closestCheckpoint;
+- (Checkpoint *) checkpointForRecordIndex:(NSUInteger) theIndex;
+
 - (void) loadCheckpoint:(Checkpoint *) checkpoint;
 - (void) maybeSaveCheckpoint;
 - (void) saveCheckpoint:(Checkpoint *) checkpoint;

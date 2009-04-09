@@ -9,9 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface DataView : NSView {
-    CALayer *rootLayer;
-}
+@interface DataView : NSView {}
 
 - (void) addLayer:(CALayer *) layer;
 

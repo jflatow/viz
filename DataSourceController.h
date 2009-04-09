@@ -7,10 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "DataSource.h"
 
 @interface DataSourceController : NSDocumentController {
-    
 }
 
 - (void) openDataSource;

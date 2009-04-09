@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D27C0FE0F86910A00B33BA9 /* RecordPainter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */; };
 		3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CC1D90F6460CB002E6409 /* RecordStream.m */; };
 		3D93F8850F5CA672008EDBC0 /* VizAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93F8840F5CA672008EDBC0 /* VizAppDelegate.m */; };
 		3D93F88C0F5CB0FB008EDBC0 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D93F88B0F5CB0FB008EDBC0 /* DataSource.m */; };
@@ -30,6 +31,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* viz_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viz_Prefix.pch; sourceTree = "<group>"; };
+		3D27C0FC0F86910A00B33BA9 /* RecordPainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordPainter.h; sourceTree = "<group>"; };
+		3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordPainter.m; sourceTree = "<group>"; };
 		3D4CC1D90F6460CB002E6409 /* RecordStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordStream.m; sourceTree = "<group>"; };
 		3D93018A0F606447008EDBC0 /* RecordStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordStream.h; sourceTree = "<group>"; };
 		3D93F8830F5CA672008EDBC0 /* VizAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VizAppDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +78,8 @@
 				3DF3E82A0F64BE4500012E78 /* Checkpoint.m */,
 				3D93018A0F606447008EDBC0 /* RecordStream.h */,
 				3D4CC1D90F6460CB002E6409 /* RecordStream.m */,
+				3D27C0FC0F86910A00B33BA9 /* RecordPainter.h */,
+				3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */,
 				3DC349C50F5B64940048CCDD /* Record.h */,
 				3DC349C60F5B64940048CCDD /* Record.m */,
 				3D93F89E0F5CBA61008EDBC0 /* DataSourceController.h */,
@@ -240,6 +245,7 @@
 				3D93FFDD0F5F9E9D008EDBC0 /* DataView.m in Sources */,
 				3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */,
 				3DF3E82B0F64BE4500012E78 /* Checkpoint.m in Sources */,
+				3D27C0FE0F86910A00B33BA9 /* RecordPainter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

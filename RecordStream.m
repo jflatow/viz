@@ -7,11 +7,25 @@
 //
 
 #import "RecordStream.h"
+#import "Checkpoint.h"
+#import "Record.h"
+#import "RecordPainter.h"
 
+
+NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger checkpointDistance) {
+        return checkpointDistance ? (recordIndex - 1) / checkpointDistance : 0;
+}
 
 @implementation RecordStream
 
-@synthesize currentRecord, graphicsLayer, animationLayer;
+@synthesize index, fileHandle, currentRecord, recordPainter;
+
++ (void) initialize {
+    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"400", @"CheckpointDistance", nil];
+    [defaults registerDefaults:appDefaults];
+}
 
 + (RecordStream *) recordStreamWithPath:(NSString *) path {
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
@@ -24,105 +38,75 @@
 - (RecordStream *) initWithFileHandle:(NSFileHandle *) aFileHandle 
                       andRecordParser:(Class <RecordParsing>) aRecordParser {
     if (self = [super init]) {
-        index = 0;
-        checkpointDistance = 100;
+        NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+        checkpointDistance = [defaults integerForKey:@"CheckpointDistance"];
         checkpoints = [NSMutableArray arrayWithCapacity:1<<5];
         fileHandle = aFileHandle;
         recordParser = aRecordParser;
-        currentRecord = nil;
-        animationLayer = [CALayer layer];
-        [animationLayer setDelegate:self];
+        [self reset];
     }
     return self;
 }
 
-- (void) blink {
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [animation setRepeatCount:1];
-    [animation setFromValue:[NSNumber numberWithFloat:0.]];
-    [animation setToValue:[NSNumber numberWithFloat:1.]];
-    [animationLayer addAnimation:animation forKey:@"animateOpacity"];
+- (void) first {
+    [self seekToIndex:1];
 }
 
-- (void) more {
-    [self maybeSaveCheckpoint];
+- (void) last {
+    [self seekToIndex:NSUIntegerMax];
+}
+
+- (void) next {
     [self pullRecord];
-    if (currentRecord)
-        index++;
 }
 
-- (void) less {
+- (void) prev {
     if (index <= 1)
         return [self reset];
-    if (currentRecord)
-        index--;
-    [self loadCheckpoint:[self closestCheckpoint]];
+    [self seekToIndex:index - 1];
+}
+
+- (Record *) pullRecord {
+    [self maybeSaveCheckpoint];
+    if (currentRecord = [recordParser nextRecordFromFileHandle:fileHandle])
+        [recordPainter paintRecord:currentRecord withIndex:++index];
+    return currentRecord;
+}
+
+- (BOOL) pullRecords:(NSUInteger) howMany {
+    while (howMany-- && [self pullRecord]);
+    return howMany == 0;
 }
 
 - (void) reset {
-    index = 0;
-    [fileHandle seekToFileOffset:0];
+    [fileHandle seekToFileOffset:index = 0];
     [self setCurrentRecord:nil];
-    [self setGraphicsLayer:CGLayerCreateWithContext(CGLayerGetContext(graphicsLayer), CGSizeZero, nil)];
+    [recordPainter clear];
 }
 
-- (void) pullRecord {
-    [self setCurrentRecord:[recordParser nextRecordFromFileHandle:fileHandle]];
-    [currentRecord paintInContext:CGLayerGetContext(graphicsLayer)];
+- (void) seekToIndex:(NSUInteger) theIndex {
+    [self loadCheckpoint:[self checkpointForRecordIndex:theIndex]];
+    [self pullRecords:theIndex - index];
 }
 
-- (void) pullRecords:(NSUInteger) howMany {
-    while (howMany--)
-        [self pullRecord];
-}
-
-- (Checkpoint *) closestCheckpoint {
-    return [checkpoints objectAtIndex:(index - 1) / checkpointDistance];
+- (Checkpoint *) checkpointForRecordIndex:(NSUInteger) theIndex {
+    NSUInteger checkpointIndex = checkpointIndexForRecordIndex(theIndex, checkpointDistance);
+    if (checkpointIndex < [checkpoints count])
+        return [checkpoints objectAtIndex:checkpointIndex];
+    return [checkpoints lastObject];
 }
 
 - (void) loadCheckpoint:(Checkpoint *) checkpoint {
-    [self setGraphicsLayer:CopyCGLayer([checkpoint graphicsLayer])];
-    [fileHandle seekToFileOffset:[checkpoint offset]];
-    [self pullRecords:(index - 1) % checkpointDistance + 1];
+    [checkpoint loadIntoRecordStream:self];
 }
 
 - (void) maybeSaveCheckpoint {
     if (index % checkpointDistance == 0 && [checkpoints count] < index / checkpointDistance + 1)
-        [self saveCheckpoint:[[Checkpoint alloc] initWithOffset:[fileHandle offsetInFile] andGraphicsLayer:graphicsLayer]];
+        [self saveCheckpoint:[[Checkpoint alloc] initFromRecordStream:self]];
 }
 
 - (void) saveCheckpoint:(Checkpoint *) checkpoint {
     [checkpoints addObject:checkpoint];
-}
-
-- (void) drawLayer:(CALayer *) theLayer inContext:(CGContextRef) context {
-    if (!graphicsLayer)
-        [self setGraphicsLayer:CGLayerCreateWithContext(context, CGSizeMake(500, 500), nil)];
-    
-    CATextLayer *textLayer;
-    if (!(textLayer = [[theLayer sublayers] lastObject])) {
-        CGColorRef fgColor = CGColorCreateGenericRGB(0.1, 0.1, 0.1, 1.0);
-        textLayer = [CATextLayer layer];
-        [textLayer setForegroundColor:fgColor];
-        [textLayer setFontSize:12];
-        [textLayer setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
-        [theLayer addSublayer:textLayer];
-        [textLayer setFrame:[theLayer frame]];
-        CGColorRelease(fgColor);
-    }
-    [textLayer setString:[[NSString alloc] initWithFormat:@"%d\n%@", index, [[currentRecord fields] componentsJoinedByString:@"\n"], nil]];
-    
-    CGContextDrawLayerAtPoint(context, CGPointZero, graphicsLayer);
-}
-
-- (void) setGraphicsLayer:(CGLayerRef) layer {
-    CGLayerRelease(graphicsLayer);
-    graphicsLayer = layer;
-}
-
-- (void) dealloc {
-    CGLayerRelease(graphicsLayer);
-    [super dealloc];
 }
 
 @end

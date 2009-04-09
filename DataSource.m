@@ -7,20 +7,24 @@
 //
 
 #import "DataSource.h"
+#import "DataView.h"
+#import "RecordStream.h"
+#import "RecordPainter.h"
+#import "RecordStream.h"
 
 @implementation DataSource
 
 @synthesize recordStream;
 
 - (DataSource *) initWithPath:(NSString *) path {
-  if (self = [super init])
-    if (!(recordStream = [RecordStream recordStreamWithPath:path]))
-      return nil;
-  return self;
+    if (self = [super init])
+        if (!(recordStream = [RecordStream recordStreamWithPath:path]))
+            return nil;
+    return self;
 }
 
 - (NSString *) windowNibName {
-  return @"DataSource";
+    return @"DataSource";
 }
 
 - (void) windowControllerWillLoadNib:(NSWindowController *) windowController {
@@ -29,32 +33,51 @@
 
 - (void) windowControllerDidLoadNib:(NSWindowController *) windowController {
     DebugLog(@"%@ nib loaded", [windowController windowNibName]);
-    [dataView addLayer:[recordStream animationLayer]];
+    [recordStream setRecordPainter:[[RecordPainter alloc] initWithDataView:dataView]];
 }
- 
+
+- (IBAction) gotoBeginning:(id) sender {
+    [recordStream first];
+}
+
+- (IBAction) gotoEnd:(id) sender {
+    [recordStream last];
+}
+
+- (IBAction) gotoRecord:(id) sender {
+    [recordStream seekToIndex:[sender integerValue]];
+}
+
+- (IBAction) insertNewline:(id) sender {
+    [recordStream next];
+}
+
+- (IBAction) moveBackward:(id) sender {
+    [recordStream prev];
+}
+
 - (IBAction) moveUp:(id) sender {
-  [recordStream blink];
-  [recordStream less];
-  [[recordStream animationLayer] setNeedsDisplay];
+    [recordStream prev];
 }
 
 - (IBAction) moveDown:(id) sender {
-  [recordStream blink];
-  [recordStream more];
-  [[recordStream animationLayer] setNeedsDisplay];
+    [recordStream next];
+}
+
+- (IBAction) moveForward:(id) sender {
+    [recordStream next];
 }
 
 - (IBAction) moveLeft:(id) sender {
-  [recordStream reset];
-  [[recordStream animationLayer] setNeedsDisplay];
+    [recordStream reset];
 }
 
 - (IBAction) moveRight:(id) sender {
-    // Change this
-  do
-    [recordStream more]; 
-  while ([recordStream currentRecord]);
-  [[recordStream animationLayer] setNeedsDisplay];
+    [recordStream last];
+}
+
+- (IBAction) deleteBackward:(id) sender {
+    [recordStream prev];
 }
 
 - (void) finalize {

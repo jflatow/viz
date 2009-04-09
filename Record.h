@@ -20,7 +20,6 @@
 
 @property(assign) NSArray *fields;
 
-+ (Record *) recordWithFields:(NSArray *) fields;
-- (void) paintInContext:(CGContextRef) context;
-
+- (Record *) initWithFields:(NSArray *) fields;
+- (Record *) initFromFileHandle:(NSFileHandle *) fileHandle;
 @end

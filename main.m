@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-    NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
-	DebugLog(@"boolArg   = %d", [args boolForKey:@"boolArg"]);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	DebugLog(@"CheckpointDistance = %d", [defaults integerForKey:@"CheckpointDistance"]);
     return NSApplicationMain(argc,  (const char **) argv);
 }

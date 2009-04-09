@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "DataSourceController.h"
+
+@class DataSourceController;
 
 @interface VizAppDelegate : NSObject {
 	IBOutlet DataSourceController *dataSourceController;

@@ -3,13 +3,14 @@
 //  viz
 //
 //  Created by Jared Flatow on 3/8/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Jared Flatow. All rights reserved.
 //
 
 #import "Checkpoint.h"
+#import "RecordStream.h"
+#import "RecordPainter.h"
 
-
-CGLayerRef CopyCGLayer(CGLayerRef layerRef) {
+CGLayerRef CGLayerCopy(CGLayerRef layerRef) {
     CGLayerRef layerRefCopy = CGLayerCreateWithContext(CGLayerGetContext(layerRef), CGLayerGetSize(layerRef), nil);
     CGContextDrawLayerAtPoint(CGLayerGetContext(layerRefCopy), CGPointZero, layerRef);
     return layerRefCopy;
@@ -17,14 +18,19 @@ CGLayerRef CopyCGLayer(CGLayerRef layerRef) {
 
 @implementation Checkpoint
 
-@synthesize offset, graphicsLayer;
-
-- (Checkpoint *) initWithOffset:(NSUInteger) theOffset andGraphicsLayer:(CGLayerRef) theGraphicsLayer {
+- (Checkpoint *) initFromRecordStream:(RecordStream *) recordStream {
     if (self = [super init]) {
-        offset = theOffset;
-        graphicsLayer = CopyCGLayer(theGraphicsLayer);
+        index = [recordStream index];
+        offset = [[recordStream fileHandle] offsetInFile];
+        graphicsLayer = CGLayerCopy([[recordStream recordPainter] graphicsLayer]);
     }
     return self;
+}
+
+- (void) loadIntoRecordStream:(RecordStream *) recordStream {
+    [recordStream setIndex:index];
+    [[recordStream fileHandle] seekToFileOffset:offset];
+    [[recordStream recordPainter] setGraphicsLayer:CGLayerCopy(graphicsLayer)];
 }
 
 - (void) dealloc {

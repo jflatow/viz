@@ -7,6 +7,7 @@
 //
 
 #import "VizAppDelegate.h"
+#import "DataSourceController.h"
 
 @implementation VizAppDelegate
 
