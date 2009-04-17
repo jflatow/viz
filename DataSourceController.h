@@ -13,5 +13,5 @@
 
 - (void) openDataSource;
 - (BOOL) openDataSourcesForPaths:(NSArray *) paths;
-
+- (void) closeAll;
 @end

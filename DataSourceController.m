@@ -26,28 +26,33 @@
 
 - (void) openPanelDidEnd:(NSOpenPanel *) panel returnCode:(int) returnCode contextInfo:(void  *) contextInfo {
     if (returnCode == NSOKButton)
-    [self openDataSourcesForPaths:[panel filenames]];
-  [panel release];
+        [self openDataSourcesForPaths:[panel filenames]];
+    [panel release];
 }
 
 - (BOOL) openDataSourcesForPaths:(NSArray *) paths {
-  DebugLog(@"creating data source for paths: %@", paths);
+    DebugLog(@"creating data source for paths: %@", paths);
 
-  for (NSString *path in paths) {
+    for (NSString *path in paths) {
     DataSource *dataSource = [[DataSource alloc] initWithPath:path];
-    if (!dataSource) {
-      NSAlert *alert = [NSAlert alertWithError:[NSError errorWithDomain:NSCocoaErrorDomain
-                                                        code:NSFileReadUnknownError
-                                                        userInfo:nil]];
+        if (!dataSource) {
+            NSAlert *alert = [NSAlert alertWithError:[NSError errorWithDomain:NSCocoaErrorDomain
+                                                                         code:NSFileReadUnknownError
+                                                                     userInfo:nil]];
       [alert runModal];
-      return NO;
+            return NO;
+        }
+        [dataSource setFileURL:[NSURL fileURLWithPath:[paths lastObject]]];
+        [dataSource makeWindowControllers];
+        [dataSource showWindows];  
+        [self noteNewRecentDocumentURL:[NSURL fileURLWithPath:path]];
     }
-    [dataSource setFileURL:[NSURL fileURLWithPath:[paths lastObject]]];
-    [dataSource makeWindowControllers];
-    [dataSource showWindows];  
-    [self noteNewRecentDocumentURL:[NSURL fileURLWithPath:path]];
-  }
-  return YES;
+    return YES;
+}
+
+- (void) closeAll {
+    for (NSDocument *document in [self documents])
+        [document close];
 }
 
 @end

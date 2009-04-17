@@ -8,19 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class DataView, Record, RecordPainter;
+@class DataView, Canvas, Record, RecordPainter;
 
 @interface RecordPainter : NSObject {
-    DataView *dataView;
-    CALayer *animationLayer;
-    CGLayerRef graphicsLayer;
+    Canvas *canvas;
 }
 
-@property DataView *dataView;
-@property CGLayerRef graphicsLayer;
+@property Canvas *canvas;
 
-- (RecordPainter *) initWithDataView:(DataView *) dataView;
-- (void) clear;
+- (void) clearCanvas;
 - (void) paintRecord:(Record *) record withIndex:(NSUInteger) index;
-- (void) setNeedsDisplay;
+
 @end

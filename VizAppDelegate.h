@@ -15,7 +15,5 @@
 }
 
 - (IBAction) openDocument:(id) sender;
-- (BOOL) application:(NSApplication *) application openFile:(NSString *) filename;
-- (void) application:(NSApplication *) application openFiles:(NSArray *) filenames;
 
 @end

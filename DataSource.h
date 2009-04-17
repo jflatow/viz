@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <QTKit/QTKit.h>
 
 @class DataView, RecordStream;
 
@@ -17,6 +18,6 @@
 
 @property(assign) RecordStream *recordStream;
 
-- (DataSource *) initWithPath:(NSString *) path;
+- (id) initWithPath:(NSString *) path;
 
 @end

@@ -37,7 +37,7 @@
 			<object class="NSWindowTemplate" id="723900400">
 				<int key="NSWindowStyleMask">271</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{507, 482}, {500, 500}}</string>
+				<string key="NSWindowRect">{{507, 443}, {500, 500}}</string>
 				<int key="NSWTFlags">603979776</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -52,7 +52,7 @@
 						<object class="NSCustomView" id="865451529">
 							<reference key="NSNextResponder" ref="1040863202"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{0, 20}, {500, 480}}</string>
+							<string key="NSFrameSize">{500, 500}</string>
 							<reference key="NSSuperview" ref="1040863202"/>
 							<string key="NSClassName">DataView</string>
 						</object>
@@ -169,9 +169,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{994, 743}, {500, 500}}</string>
+					<string>{{323, 865}, {500, 500}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{994, 743}, {500, 500}}</string>
+					<string>{{323, 865}, {500, 500}}</string>
 					<integer value="1" id="9"/>
 					<string>{{322, 547}, {500, 309}}</string>
 					<reference ref="9"/>

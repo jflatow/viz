@@ -20,6 +20,6 @@
 
 @property(assign) NSArray *fields;
 
-- (Record *) initWithFields:(NSArray *) fields;
-- (Record *) initFromFileHandle:(NSFileHandle *) fileHandle;
+- (id) initWithFields:(NSArray *) fields;
+- (id) initFromFileHandle:(NSFileHandle *) fileHandle;
 @end

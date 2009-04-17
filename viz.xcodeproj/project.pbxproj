@@ -20,6 +20,12 @@
 		3DC3499B0F5B07900048CCDD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC349990F5B07900048CCDD /* MainMenu.xib */; };
 		3DC349C70F5B64940048CCDD /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC349C60F5B64940048CCDD /* Record.m */; };
 		3DF3E82B0F64BE4500012E78 /* Checkpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3E82A0F64BE4500012E78 /* Checkpoint.m */; };
+		3DF3EA560F939FBC00197190 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF3EA550F939FBC00197190 /* WebKit.framework */; };
+		3DF3EAC90F93C12900197190 /* Canvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3EAC80F93C12900197190 /* Canvas.m */; };
+		3DF3ECE50F94037700197190 /* WebScriptRecordPainter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3ECE40F94037700197190 /* WebScriptRecordPainter.m */; };
+		3DF3F09A0F962DA400197190 /* ThrottledFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3F0990F962DA400197190 /* ThrottledFileHandle.m */; };
+		3DF3F17B0F967BBC00197190 /* StreamBufferedFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3F17A0F967BBC00197190 /* StreamBufferedFileHandle.m */; };
+		3DF3F3130F978AC000197190 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF3F3120F978AC000197190 /* QTKit.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +59,16 @@
 		3DC349C60F5B64940048CCDD /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		3DF3E8290F64BE4500012E78 /* Checkpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkpoint.h; sourceTree = "<group>"; };
 		3DF3E82A0F64BE4500012E78 /* Checkpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkpoint.m; sourceTree = "<group>"; };
+		3DF3E8C60F938FEB00197190 /* WebScriptRecordPainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebScriptRecordPainter.h; sourceTree = "<group>"; };
+		3DF3EA550F939FBC00197190 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		3DF3EAC70F93C12900197190 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
+		3DF3EAC80F93C12900197190 /* Canvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Canvas.m; sourceTree = "<group>"; };
+		3DF3ECE40F94037700197190 /* WebScriptRecordPainter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebScriptRecordPainter.m; sourceTree = "<group>"; };
+		3DF3F0980F962DA400197190 /* ThrottledFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrottledFileHandle.h; sourceTree = "<group>"; };
+		3DF3F0990F962DA400197190 /* ThrottledFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrottledFileHandle.m; sourceTree = "<group>"; };
+		3DF3F1790F967BBC00197190 /* StreamBufferedFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamBufferedFileHandle.h; sourceTree = "<group>"; };
+		3DF3F17A0F967BBC00197190 /* StreamBufferedFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamBufferedFileHandle.m; sourceTree = "<group>"; };
+		3DF3F3120F978AC000197190 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* viz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = viz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -65,6 +81,8 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				3D93FF430F5F486F008EDBC0 /* Quartz.framework in Frameworks */,
 				3D93FF440F5F486F008EDBC0 /* QuartzCore.framework in Frameworks */,
+				3DF3EA560F939FBC00197190 /* WebKit.framework in Frameworks */,
+				3DF3F3130F978AC000197190 /* QTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +94,18 @@
 			children = (
 				3DF3E8290F64BE4500012E78 /* Checkpoint.h */,
 				3DF3E82A0F64BE4500012E78 /* Checkpoint.m */,
+				3DF3EAC70F93C12900197190 /* Canvas.h */,
+				3DF3EAC80F93C12900197190 /* Canvas.m */,
 				3D93018A0F606447008EDBC0 /* RecordStream.h */,
 				3D4CC1D90F6460CB002E6409 /* RecordStream.m */,
 				3D27C0FC0F86910A00B33BA9 /* RecordPainter.h */,
 				3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */,
+				3DF3F1790F967BBC00197190 /* StreamBufferedFileHandle.h */,
+				3DF3F17A0F967BBC00197190 /* StreamBufferedFileHandle.m */,
+				3DF3F0980F962DA400197190 /* ThrottledFileHandle.h */,
+				3DF3F0990F962DA400197190 /* ThrottledFileHandle.m */,
+				3DF3E8C60F938FEB00197190 /* WebScriptRecordPainter.h */,
+				3DF3ECE40F94037700197190 /* WebScriptRecordPainter.m */,
 				3DC349C50F5B64940048CCDD /* Record.h */,
 				3DC349C60F5B64940048CCDD /* Record.m */,
 				3D93F89E0F5CBA61008EDBC0 /* DataSourceController.h */,
@@ -97,6 +123,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DF3F3120F978AC000197190 /* QTKit.framework */,
+				3DF3EA550F939FBC00197190 /* WebKit.framework */,
 				3D93FF410F5F486F008EDBC0 /* Quartz.framework */,
 				3D93FF420F5F486F008EDBC0 /* QuartzCore.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
@@ -246,6 +274,10 @@
 				3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */,
 				3DF3E82B0F64BE4500012E78 /* Checkpoint.m in Sources */,
 				3D27C0FE0F86910A00B33BA9 /* RecordPainter.m in Sources */,
+				3DF3EAC90F93C12900197190 /* Canvas.m in Sources */,
+				3DF3ECE50F94037700197190 /* WebScriptRecordPainter.m in Sources */,
+				3DF3F09A0F962DA400197190 /* ThrottledFileHandle.m in Sources */,
+				3DF3F17B0F967BBC00197190 /* StreamBufferedFileHandle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

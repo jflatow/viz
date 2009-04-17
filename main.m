@@ -8,9 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[])
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	DebugLog(@"CheckpointDistance = %d", [defaults integerForKey:@"CheckpointDistance"]);
+int main(int argc, char *argv[]) {
     return NSApplicationMain(argc,  (const char **) argv);
 }

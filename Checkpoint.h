@@ -18,7 +18,7 @@ CGLayerRef CGLayerCopy(CGLayerRef layerRef);
     CGLayerRef graphicsLayer;
 }
 
-- (Checkpoint *) initFromRecordStream:(RecordStream *) recordStream;
+- (id) initFromRecordStream:(RecordStream *) recordStream;
 - (void) loadIntoRecordStream:(RecordStream *) recordStream;
 
 @end

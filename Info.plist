@@ -32,6 +32,34 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mov</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Movie-QuickTime.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>video/quicktime</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Movie-QuickTime</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>****</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.quicktime-movie</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -45,12 +73,12 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2009 Jared Flatow</string>
 	<key>NSMainNibFile</key>

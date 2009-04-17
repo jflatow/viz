@@ -7,6 +7,7 @@
 //
 
 #import "Checkpoint.h"
+#import "Canvas.h"
 #import "RecordStream.h"
 #import "RecordPainter.h"
 
@@ -18,11 +19,11 @@ CGLayerRef CGLayerCopy(CGLayerRef layerRef) {
 
 @implementation Checkpoint
 
-- (Checkpoint *) initFromRecordStream:(RecordStream *) recordStream {
+- (id) initFromRecordStream:(RecordStream *) recordStream {
     if (self = [super init]) {
         index = [recordStream index];
         offset = [[recordStream fileHandle] offsetInFile];
-        graphicsLayer = CGLayerCopy([[recordStream recordPainter] graphicsLayer]);
+        graphicsLayer = CGLayerCopy([[[recordStream recordPainter] canvas] graphicsLayer]);
     }
     return self;
 }
@@ -30,7 +31,8 @@ CGLayerRef CGLayerCopy(CGLayerRef layerRef) {
 - (void) loadIntoRecordStream:(RecordStream *) recordStream {
     [recordStream setIndex:index];
     [[recordStream fileHandle] seekToFileOffset:offset];
-    [[recordStream recordPainter] setGraphicsLayer:CGLayerCopy(graphicsLayer)];
+    [[[recordStream recordPainter] canvas] setGraphicsLayer:CGLayerCopy(graphicsLayer)];
+    [[[recordStream recordPainter] canvas] setNeedsDisplay];
 }
 
 - (void) dealloc {

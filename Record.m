@@ -21,17 +21,25 @@ static NSUInteger BUFFER_SIZE = 1 << 10;
     [defaults registerDefaults:appDefaults];
 }
 
++ (BOOL) isKeyExcludedFromWebScript:(const char *) name {
+    return NO;
+}
+
++ (BOOL) isSelectorExcludedFromWebScript:(SEL) aSelector {
+    return NO;
+}
+
 + (Record *) nextRecordFromFileHandle:(NSFileHandle *) fileHandle {
     return [[[self class] alloc] initFromFileHandle:fileHandle];
 }
 
-- (Record *) initWithFields:(NSArray *) theFields {
+- (id) initWithFields:(NSArray *) theFields {
     if (self = [super init])
         [self setFields:theFields];
     return self;
 }
 
-- (Record *) initFromFileHandle:(NSFileHandle *) fileHandle {
+- (id) initFromFileHandle:(NSFileHandle *) fileHandle {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSString *recordSeparator = [defaults stringForKey:@"RecordSeparator"];
     NSString *fieldSeparator  = [defaults stringForKey:@"FieldSeparator"];

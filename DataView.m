@@ -12,15 +12,11 @@
 
 - (void) awakeFromNib {
     CALayer *rootLayer;
-    CGColorRef bgColor = CGColorCreateGenericRGB(1., 1., 1., .9);
-    [[self window] setContentAspectRatio:NSMakeSize(1, 1)];
     [self setWantsLayer:YES];
     rootLayer = [self layer];
     [rootLayer setDelegate:self];
     [rootLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
-    [rootLayer setBackgroundColor:bgColor];
     [rootLayer setNeedsDisplay];
-    CGColorRelease(bgColor);
 }
 
 - (void) addLayer:(CALayer *) layer {
@@ -44,12 +40,21 @@
     return YES;
 }
 
+- (void) insertText:(id) text {
+    [[[self window] delegate] insertText:text];
+}
+
 - (void) keyDown:(NSEvent *) theEvent {
     [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 }
 
-- (void) drawLayer:(CALayer *) layer inContext:(CGContextRef) context {
-    // draw root layer
+- (void) resizeTo:(NSSize) size {
+    NSRect windowFrame  = [[self window] frame];
+    NSRect frame        = [self frame];
+    windowFrame.size    = NSMakeSize(size.width  + windowFrame.size.width  - frame.size.width,
+                                     size.height + windowFrame.size.height - frame.size.height);
+    [[self window] setFrame:windowFrame display:YES];
+    [[self window] setContentAspectRatio:size];
 }
 
 @end

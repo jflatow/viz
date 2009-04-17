@@ -7,6 +7,7 @@
 //
 
 #import "DataSource.h"
+#import "Canvas.h"
 #import "DataView.h"
 #import "RecordStream.h"
 #import "RecordPainter.h"
@@ -14,26 +15,32 @@
 
 @implementation DataSource
 
+static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
+
 @synthesize recordStream;
 
-- (DataSource *) initWithPath:(NSString *) path {
+#pragma mark Interface Methods
+
+- (id) initWithPath:(NSString *) path {
     if (self = [super init])
-        if (!(recordStream = [RecordStream recordStreamWithPath:path]))
+        if (!(recordStream = [[RecordStream alloc] initWithPath:path]))
             return nil;
     return self;
 }
 
-- (NSString *) windowNibName {
-    return @"DataSource";
+#pragma mark Delegated Methods
+
+- (void) insertText:(id) text {
+    if ([text isEqualToString:@" "])
+        [recordStream togglePlay];
+    else if ([text isEqualToString:@"-"])
+        [recordStream slowDown];
+    else if ([text isEqualToString:@"+"])
+        [recordStream speedUp];
 }
 
-- (void) windowControllerWillLoadNib:(NSWindowController *) windowController {
-    DebugLog(@"%@ nib loading", [windowController windowNibName]);
-}
-
-- (void) windowControllerDidLoadNib:(NSWindowController *) windowController {
-    DebugLog(@"%@ nib loaded", [windowController windowNibName]);
-    [recordStream setRecordPainter:[[RecordPainter alloc] initWithDataView:dataView]];
+- (IBAction) deleteBackward:(id) sender {
+    [recordStream prev];
 }
 
 - (IBAction) gotoBeginning:(id) sender {
@@ -56,33 +63,68 @@
     [recordStream prev];
 }
 
-- (IBAction) moveUp:(id) sender {
-    [recordStream prev];
-}
-
-- (IBAction) moveDown:(id) sender {
-    [recordStream next];
-}
-
 - (IBAction) moveForward:(id) sender {
     [recordStream next];
 }
 
 - (IBAction) moveLeft:(id) sender {
-    [recordStream reset];
+    [recordStream first];
 }
 
 - (IBAction) moveRight:(id) sender {
     [recordStream last];
 }
 
-- (IBAction) deleteBackward:(id) sender {
-    [recordStream prev];
+- (IBAction) play:(id) sender {
+    [recordStream play];
 }
 
-- (void) finalize {
-    DebugLog(@"finalizing datasource", nil);
-    [super finalize];
+- (IBAction) stepBack:(id) sender {
+    [recordStream prevFrame];
+}
+
+- (IBAction) stepForward:(id) sender {
+    [recordStream nextFrame];
+}
+
+#pragma mark Overrides of NSDocument Methods
+
+- (void) close {
+    [recordStream close];
+    [super close];
+}
+
+- (NSString *) windowNibName {
+    return @"DataSource";
+}
+
+- (void) windowControllerWillLoadNib:(NSWindowController *) windowController {
+    DebugLog(@"%@ nib loading", [windowController windowNibName]);
+}
+
+- (void) windowControllerDidLoadNib:(NSWindowController *) windowController {
+    [[recordStream recordPainter] setCanvas:[[Canvas alloc] initWithDataView:dataView]];
+}
+
+- (NSArray *) writableTypesForSaveOperation:(NSSaveOperationType) saveOperation {
+    return [NSArray arrayWithObject:QuickTimeMovieType];
+}
+
+- (BOOL) writeToURL:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError **) outError {
+    if ([[NSWorkspace sharedWorkspace] type:QuickTimeMovieType conformsToType:typeName]) {
+        QTMovie *movie = [[QTMovie alloc] initToWritableFile:[absoluteURL path] error:outError];
+        if (!movie)
+            return NO;
+        NSImage *image;
+        NSDictionary *attrs = [NSDictionary dictionaryWithObject:@"jpeg" forKey:QTAddImageCodecType];
+        do {
+            image = [[[recordStream recordPainter] canvas] renderInImage];
+            [movie addImage:image forDuration:QTMakeTime(1, [recordStream framesPerSecond]) withAttributes:attrs];
+        } while ([recordStream nextFrame]);
+        if ([movie updateMovieFile])
+            return YES;
+    }
+    return NO;
 }
 
 @end

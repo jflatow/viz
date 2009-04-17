@@ -12,15 +12,23 @@
 @implementation VizAppDelegate
 
 - (IBAction) openDocument:(id) sender {
-  [dataSourceController openDataSource];
+    [dataSourceController openDataSource];
 }
 
 - (BOOL) application:(NSApplication *) application openFile:(NSString *) filename {
-  return [dataSourceController openDataSourcesForPaths:[NSArray arrayWithObject:filename]];
+    return [dataSourceController openDataSourcesForPaths:[NSArray arrayWithObject:filename]];
 }
 
 - (void) application:(NSApplication *) application openFiles:(NSArray *) filenames {
-  [dataSourceController openDataSourcesForPaths:filenames];
+    [dataSourceController openDataSourcesForPaths:filenames];
+}
+
+- (void) applicationWillFinishLaunching:(NSNotification *) aNotification {
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+}
+
+- (void) applicationWillTerminate:(NSNotification *) aNotification {
+    [dataSourceController closeAll];
 }
 
 @end

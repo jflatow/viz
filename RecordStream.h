@@ -14,7 +14,8 @@
 NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger checkpointDistance);
 
 @interface RecordStream : NSObject {
-    NSUInteger index, checkpointDistance;
+    BOOL playing, recording, savesCheckpoints;
+    NSUInteger checkpointDistance, framesPerSecond, index, recordsPerFrame;
     NSMutableArray *checkpoints;
     NSFileHandle *fileHandle;
     Class <RecordParsing> recordParser;
@@ -22,26 +23,33 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
     Record *currentRecord;
 }
 
-@property NSUInteger index;
+@property NSUInteger framesPerSecond, index, recordsPerFrame;
 @property NSFileHandle *fileHandle;
 @property Record *currentRecord;
 @property RecordPainter *recordPainter;
+@property (readonly) double frameInterval;
 
-+ (RecordStream *) recordStreamWithPath:(NSString *) path;
-- (RecordStream *) initWithFileHandle:(NSFileHandle *) aFileHandle 
-                      andRecordParser:(Class <RecordParsing>) recordParser;
-
++ (Class) validClassForKey:(NSString *) key;
+- (id) initWithPath:(NSString *) path;
+- (void) close;
 - (void) first;
 - (void) last;
 - (void) next;
+- (BOOL) nextFrame;
+- (void) pause;
+- (void) play;
+- (void) playTimerFired:(NSTimer *) timer;
 - (void) prev;
+- (void) prevFrame;
 - (Record *) pullRecord;
-- (BOOL) pullRecords:(NSUInteger) howMany;
+- (NSUInteger) pullRecords:(NSUInteger) howMany;
 - (void) reset;
 - (void) seekToIndex:(NSUInteger) theIndex;
+- (void) slowDown;
+- (void) speedUp;
+- (void) togglePlay;
 
 - (Checkpoint *) checkpointForRecordIndex:(NSUInteger) theIndex;
-
 - (void) loadCheckpoint:(Checkpoint *) checkpoint;
 - (void) maybeSaveCheckpoint;
 - (void) saveCheckpoint:(Checkpoint *) checkpoint;

@@ -10,42 +10,66 @@
 #import "Checkpoint.h"
 #import "Record.h"
 #import "RecordPainter.h"
-
+#import "StreamBufferedFileHandle.h"
+#import "ThrottledFileHandle.h"
 
 NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger checkpointDistance) {
-        return checkpointDistance ? (recordIndex - 1) / checkpointDistance : 0;
+    if (!recordIndex)
+        return 0;
+    return checkpointDistance ? (recordIndex) / checkpointDistance : 0;
 }
 
 @implementation RecordStream
 
-@synthesize index, fileHandle, currentRecord, recordPainter;
+static NSUInteger DELTA_RPF = 10;
+
+@synthesize currentRecord, fileHandle, framesPerSecond, index, recordPainter, recordsPerFrame;
 
 + (void) initialize {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"400", @"CheckpointDistance", nil];
+                                 @"300",           @"CheckpointDistance",
+                                 @"100",           @"FramesPerSecond",
+                                 @"100",           @"RecordsPerFrame",
+                                 @"YES",           @"SavesCheckpoints",
+                                 @"RecordPainter", @"RecordPainterClass",
+                                 @"Record",        @"RecordParserClass", nil];
     [defaults registerDefaults:appDefaults];
 }
 
-+ (RecordStream *) recordStreamWithPath:(NSString *) path {
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-    if (!fileHandle)
-        return nil;
-    return [[RecordStream alloc] initWithFileHandle:fileHandle 
-                                    andRecordParser:[Record class]];
++ (Class) validClassForKey:(NSString *) key {
+    Class class;
+    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appDefaults = [defaults volatileDomainForName:NSRegistrationDomain];
+    if (!(class = objc_getClass([[defaults   stringForKey:key] UTF8String])))
+          class = objc_getClass([[appDefaults valueForKey:key] UTF8String]);
+    return class;
 }
 
-- (RecordStream *) initWithFileHandle:(NSFileHandle *) aFileHandle 
-                      andRecordParser:(Class <RecordParsing>) aRecordParser {
+- (id) initWithPath:(NSString *) path {
     if (self = [super init]) {
-        NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
-        checkpointDistance = [defaults integerForKey:@"CheckpointDistance"];
-        checkpoints = [NSMutableArray arrayWithCapacity:1<<5];
-        fileHandle = aFileHandle;
-        recordParser = aRecordParser;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        checkpointDistance = [defaults                   integerForKey:@"CheckpointDistance"];
+        framesPerSecond    = [defaults                   integerForKey:@"FramesPerSecond"];
+        recordsPerFrame    = [defaults                   integerForKey:@"RecordsPerFrame"];
+        recordPainter      = [[[[self class]          validClassForKey:@"RecordPainterClass"] alloc] init];
+        recordParser       = [[  self class]          validClassForKey:@"RecordParserClass"];
+        savesCheckpoints   = checkpointDistance ? [defaults boolForKey:@"SavesCheckpoints"] : NO;
+        checkpoints        = [NSMutableArray arrayWithCapacity:1<<5];
+        playing            = false; 
+        if (savesCheckpoints)
+            fileHandle = [ThrottledFileHandle fileHandleForReadingAtPath:path];
+        else
+            fileHandle = [StreamBufferedFileHandle fileHandleForReadingAtPath:path];
+        if (!fileHandle)
+            return nil;
         [self reset];
     }
     return self;
+}
+
+- (void) close {
+    [fileHandle closeFile];
 }
 
 - (void) first {
@@ -60,10 +84,41 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
     [self pullRecord];
 }
 
+- (BOOL) nextFrame {
+    return [self pullRecords:recordsPerFrame] < recordsPerFrame;
+}
+
+- (void) pause {
+    playing = false;
+}
+
+- (void) play {
+    playing = true;
+    [NSTimer scheduledTimerWithTimeInterval:[self frameInterval]
+                                     target:self
+                                   selector:@selector(playTimerFired:)
+                                   userInfo:nil
+                                    repeats:YES];
+}
+
+- (void) playTimerFired:(NSTimer *) timer {
+    [self nextFrame];
+    if (!playing || !currentRecord) {
+        playing = false;
+        [timer invalidate];
+    }
+}
+
 - (void) prev {
     if (index <= 1)
         return [self reset];
     [self seekToIndex:index - 1];
+}
+
+- (void) prevFrame {
+    if (index <= recordsPerFrame)
+        return [self reset];
+    [self seekToIndex:index - recordsPerFrame];
 }
 
 - (Record *) pullRecord {
@@ -73,20 +128,36 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
     return currentRecord;
 }
 
-- (BOOL) pullRecords:(NSUInteger) howMany {
+- (NSUInteger) pullRecords:(NSUInteger) howMany {
     while (howMany-- && [self pullRecord]);
-    return howMany == 0;
+    return howMany + 1;
 }
 
 - (void) reset {
     [fileHandle seekToFileOffset:index = 0];
     [self setCurrentRecord:nil];
-    [recordPainter clear];
+    [recordPainter clearCanvas];
 }
 
 - (void) seekToIndex:(NSUInteger) theIndex {
     [self loadCheckpoint:[self checkpointForRecordIndex:theIndex]];
-    [self pullRecords:theIndex - index];
+    if (theIndex > index)
+        [self pullRecords:theIndex - index];
+}
+
+- (void) slowDown {
+    if (recordsPerFrame >= DELTA_RPF)
+        recordsPerFrame -= DELTA_RPF;
+    DebugLog(@"recordsPerFrame: %d, framesPerSecond: %d", recordsPerFrame, framesPerSecond);
+}
+
+- (void) speedUp {
+    recordsPerFrame += DELTA_RPF;
+    DebugLog(@"recordsPerFrame: %d, framesPerSecond: %d", recordsPerFrame, framesPerSecond);
+}
+
+- (void) togglePlay {
+    playing ? [self pause] : [self play];
 }
 
 - (Checkpoint *) checkpointForRecordIndex:(NSUInteger) theIndex {
@@ -101,12 +172,17 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
 }
 
 - (void) maybeSaveCheckpoint {
-    if (index % checkpointDistance == 0 && [checkpoints count] < index / checkpointDistance + 1)
-        [self saveCheckpoint:[[Checkpoint alloc] initFromRecordStream:self]];
+    if (savesCheckpoints)
+        if (index % checkpointDistance == 0 && [checkpoints count] < index / checkpointDistance + 1)
+            [self saveCheckpoint:[[Checkpoint alloc] initFromRecordStream:self]];
 }
 
 - (void) saveCheckpoint:(Checkpoint *) checkpoint {
     [checkpoints addObject:checkpoint];
+}
+
+- (double) frameInterval {
+    return 1. / framesPerSecond;
 }
 
 @end

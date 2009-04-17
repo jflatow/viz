@@ -12,5 +12,6 @@
 @interface DataView : NSView {}
 
 - (void) addLayer:(CALayer *) layer;
+- (void) resizeTo:(NSSize) size;
 
 @end
