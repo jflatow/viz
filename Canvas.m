@@ -90,6 +90,12 @@
     CGContextDrawPath(context, kCGPathFillStroke);
 }
 
+- (NSView *) printView {
+    NSImageView *view = [[NSImageView alloc] initWithFrame:[dataView frame]];
+    [view setImage:[self renderInImage]];
+    return view;
+}
+
 - (void) renderInImage:(NSImage *) image {
     [dataView lockFocus];
     NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:[dataView bounds]];
@@ -124,6 +130,10 @@
 
 - (void) setText:(NSString *) text {
     [textLayer setString:text];
+}
+
+- (NSString *) text {
+    return [textLayer string];
 }
 
 - (CGFloat) width {

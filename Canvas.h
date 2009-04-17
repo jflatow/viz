@@ -22,16 +22,17 @@
 
 @property DataView *dataView;
 @property CGLayerRef graphicsLayer;
-@property(readonly) CGFloat width, height;
+@property (assign) NSString *text;
+@property (readonly) CGFloat width, height;
 
 - (id) initWithDataView:(DataView *) dataView;
 - (void) blink;
 - (void) clear;
 - (CGContextRef) context;
 - (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y;
+- (NSView *) printView;
 - (void) renderInImage:(NSImage *) image;
 - (NSImage *) renderInImage;
 - (void) setNeedsDisplay;
-- (void) setText:(NSString *) text;
 
 @end

@@ -18,7 +18,7 @@
     NSArray *fields;
 }
 
-@property(assign) NSArray *fields;
+@property (assign) NSArray *fields;
 
 - (id) initWithFields:(NSArray *) fields;
 - (id) initFromFileHandle:(NSFileHandle *) fileHandle;

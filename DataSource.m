@@ -30,6 +30,18 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
 
 #pragma mark Delegated Methods
 
+- (IBAction) copy:(id) sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSArray *types = [NSArray arrayWithObject:NSStringPboardType];
+    [pb declareTypes:types owner:self];
+    [pb setString:[[recordStream canvas] text] forType:NSStringPboardType];
+}
+
+- (IBAction) cut:(id) sender {
+    [self copy:sender];
+    [[recordStream canvas] setText:@""];
+}
+
 - (void) insertText:(id) text {
     if ([text isEqualToString:@" "])
         [recordStream togglePlay];
@@ -75,6 +87,13 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
     [recordStream last];
 }
 
+- (IBAction) paste:(id) sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSString *data = [pb stringForType:NSStringPboardType];
+    if (data)
+        [[recordStream canvas] setText:data];
+}
+
 - (IBAction) play:(id) sender {
     [recordStream play];
 }
@@ -94,6 +113,18 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
     [super close];
 }
 
+- (void) printShowingPrintPanel:(BOOL) showPanels {
+    DebugLog(@"print document", nil);
+    NSPrintOperation *op = [NSPrintOperation
+                            printOperationWithView:[[recordStream canvas] printView]
+                            printInfo:[self printInfo]];
+    [op setShowPanels:showPanels];
+    [self runModalPrintOperation:op
+                        delegate:nil
+                  didRunSelector:NULL
+                     contextInfo:NULL];
+}
+
 - (NSString *) windowNibName {
     return @"DataSource";
 }
@@ -103,7 +134,7 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
 }
 
 - (void) windowControllerDidLoadNib:(NSWindowController *) windowController {
-    [[recordStream recordPainter] setCanvas:[[Canvas alloc] initWithDataView:dataView]];
+    [recordStream setCanvas:[[Canvas alloc] initWithDataView:dataView]];
 }
 
 - (NSArray *) writableTypesForSaveOperation:(NSSaveOperationType) saveOperation {
@@ -118,7 +149,7 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
         NSImage *image;
         NSDictionary *attrs = [NSDictionary dictionaryWithObject:@"jpeg" forKey:QTAddImageCodecType];
         do {
-            image = [[[recordStream recordPainter] canvas] renderInImage];
+            image = [[recordStream canvas] renderInImage];
             [movie addImage:image forDuration:QTMakeTime(1, [recordStream framesPerSecond]) withAttributes:attrs];
         } while ([recordStream nextFrame]);
         if ([movie updateMovieFile])

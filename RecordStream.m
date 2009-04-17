@@ -68,6 +68,14 @@ static NSUInteger DELTA_RPF = 10;
     return self;
 }
 
+- (Canvas *) canvas {
+    return [recordPainter canvas];
+}
+
+- (void) setCanvas:(Canvas *) canvas {
+    [recordPainter setCanvas:canvas];
+}
+
 - (void) close {
     [fileHandle closeFile];
 }

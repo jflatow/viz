@@ -61,4 +61,10 @@ static NSUInteger BUFFER_SIZE = 1 << 10;
     return nil;
 }
 
+- (NSString *) stringRepresentation {
+    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+    NSString *fieldSeparator  = [defaults stringForKey:@"FieldSeparator"];
+    return [fields componentsJoinedByString:fieldSeparator];
+}
+
 @end

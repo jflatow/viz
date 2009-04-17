@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Checkpoint, Record, RecordPainter;
+@class Canvas, Checkpoint, Record, RecordPainter;
 @protocol RecordParsing;
 
 NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger checkpointDistance);
@@ -27,6 +27,7 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
 @property NSFileHandle *fileHandle;
 @property Record *currentRecord;
 @property RecordPainter *recordPainter;
+@property Canvas *canvas;
 @property (readonly) double frameInterval;
 
 + (Class) validClassForKey:(NSString *) key;
