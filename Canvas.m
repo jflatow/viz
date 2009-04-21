@@ -18,8 +18,8 @@
 + (void) initialize {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"500", @"CanvasWidth",
-                                 @"500", @"CanvasHeight", nil];
+                                 @"600", @"CanvasWidth",
+                                 @"600", @"CanvasHeight", nil];
     [defaults registerDefaults:appDefaults];    
 }
 
@@ -82,14 +82,6 @@
     return CGLayerGetContext(graphicsLayer);
 }
 
-- (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y {
-    CGContextRef context = [self context];
-    CGContextBeginPath(context);
-    CGContextAddArc(context, x, y, radius, 0, 2 * M_PI, false);
-    CGContextClosePath(context);
-    CGContextDrawPath(context, kCGPathFillStroke);
-}
-
 - (NSView *) printView {
     NSImageView *view = [[NSImageView alloc] initWithFrame:[dataView frame]];
     [view setImage:[self renderInImage]];
@@ -120,14 +112,6 @@
     [animationLayer setNeedsDisplay];
 }
 
-- (void) setFillColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a {
-    CGContextSetRGBFillColor([self context], r, g, b, a);
-}
-
-- (void) setStrokeColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a {
-    CGContextSetRGBStrokeColor([self context], r, g, b, a);
-}
-
 - (void) setText:(NSString *) text {
     [textLayer setString:text];
 }
@@ -142,6 +126,53 @@
 
 - (CGFloat) height {
     return canvasSize.height;
+}
+
+#pragma mark Painting Methods
+- (void) paintArcWithRadius:(CGFloat) radius 
+              andStartAngle:(CGFloat) startAngle 
+                andEndAngle:(CGFloat) endAngle 
+                        atX:(CGFloat) x 
+                       andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextBeginPath(context);
+    CGContextAddArc(context, x, y, radius, startAngle, endAngle, false);
+    CGContextDrawPath(context, kCGPathStroke);
+}
+
+- (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextBeginPath(context);
+    CGContextAddArc(context, x, y, radius, 0, 2 * M_PI, false);
+    CGContextDrawPath(context, kCGPathFillStroke);
+}
+
+- (void) paintRectWithLength:(CGFloat) length andWidth:(CGFloat) width atX:(CGFloat) x andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextBeginPath(context);
+    CGContextAddRect(context, CGRectMake(x, y, length, width));
+    CGContextClosePath(context);
+    CGContextDrawPath(context, kCGPathFillStroke);    
+}
+
+- (void) restoreGState {
+    CGContextRestoreGState([self context]);
+}
+
+- (void) saveGState {
+    CGContextSaveGState([self context]);
+}
+
+- (void) scaleCTMWithXFactor:(CGFloat) sx andYFactor:(CGFloat) sy {
+    CGContextScaleCTM([self context], sx, sy);
+}
+
+- (void) setFillColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a {
+    CGContextSetRGBFillColor([self context], r, g, b, a);
+}
+
+- (void) setStrokeColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a {
+    CGContextSetRGBStrokeColor([self context], r, g, b, a);
 }
 
 #pragma mark CALayer Delegate Methods

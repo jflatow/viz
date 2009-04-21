@@ -7,8 +7,11 @@
 //
 
 #import "DataView.h"
+#import "Canvas.h"
 
 @implementation DataView
+
+@synthesize canvas;
 
 - (void) awakeFromNib {
     CALayer *rootLayer;
@@ -17,6 +20,7 @@
     [rootLayer setDelegate:self];
     [rootLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
     [rootLayer setNeedsDisplay];
+    [self setCanvas:[[Canvas alloc] initWithDataView:self]];
 }
 
 - (void) addLayer:(CALayer *) layer {
@@ -38,6 +42,16 @@
 
 - (BOOL) acceptsFirstResponder {
     return YES;
+}
+
+- (void)insertBacktab:(id)sender {
+    if ([[self window] firstResponder] == self)
+        [[self window] selectPreviousKeyView:self];
+}
+
+- (void)insertTab:(id)sender {
+    if ([[self window] firstResponder] == self)
+        [[self window] selectNextKeyView:self];
 }
 
 - (void) insertText:(id) text {

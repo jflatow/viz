@@ -42,6 +42,16 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
     [[recordStream canvas] setText:@""];
 }
 
+- (IBAction) find:(id) sender {
+    lastSearchString = [sender stringValue];
+    [recordStream searchForString:lastSearchString];
+}
+
+- (IBAction) findNext:(id) sender {
+    [recordStream next];
+    [recordStream searchForString:lastSearchString];
+}
+
 - (void) insertText:(id) text {
     if ([text isEqualToString:@" "])
         [recordStream togglePlay];
@@ -134,7 +144,7 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
 }
 
 - (void) windowControllerDidLoadNib:(NSWindowController *) windowController {
-    [recordStream setCanvas:[[Canvas alloc] initWithDataView:dataView]];
+    [recordStream setCanvas:[dataView canvas]];
 }
 
 - (NSArray *) writableTypesForSaveOperation:(NSSaveOperationType) saveOperation {

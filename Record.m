@@ -61,6 +61,12 @@ static NSUInteger BUFFER_SIZE = 1 << 10;
     return nil;
 }
 
+- (BOOL) contains:(NSString *) string {
+    if (![string length])
+        return true;
+    return [[self stringRepresentation] rangeOfString:string].location != NSNotFound;
+}
+
 - (NSString *) stringRepresentation {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSString *fieldSeparator  = [defaults stringForKey:@"FieldSeparator"];

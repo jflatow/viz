@@ -11,6 +11,8 @@
 
 @implementation DataSourceController
 
+@synthesize hasOpenedDataSources;
+
 - (void) openDataSource {
   NSOpenPanel *openPanel = [NSOpenPanel openPanel];
   [openPanel retain];
@@ -47,7 +49,7 @@
         [dataSource showWindows];  
         [self noteNewRecentDocumentURL:[NSURL fileURLWithPath:path]];
     }
-    return YES;
+    return hasOpenedDataSources = YES;
 }
 
 - (void) closeAll {

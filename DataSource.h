@@ -14,6 +14,7 @@
 @interface DataSource : NSDocument {
     IBOutlet DataView *dataView;
     RecordStream *recordStream;
+    NSString *lastSearchString;
 }
 
 @property(assign) RecordStream *recordStream;

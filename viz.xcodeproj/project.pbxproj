@@ -26,6 +26,7 @@
 		3DF3F09A0F962DA400197190 /* ThrottledFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3F0990F962DA400197190 /* ThrottledFileHandle.m */; };
 		3DF3F17B0F967BBC00197190 /* StreamBufferedFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3F17A0F967BBC00197190 /* StreamBufferedFileHandle.m */; };
 		3DF3F3130F978AC000197190 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF3F3120F978AC000197190 /* QTKit.framework */; };
+		3DF3F8410F9E398300197190 /* viz.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3D93FB310F5DAA2A008EDBC0 /* viz.sh */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -236,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF3F8410F9E398300197190 /* viz.sh in Resources */,
 				3DC3499B0F5B07900048CCDD /* MainMenu.xib in Resources */,
 				3D93FB230F5DA0F7008EDBC0 /* README in Resources */,
 				3D93FF0C0F5F378E008EDBC0 /* DataSource.xib in Resources */,
@@ -256,7 +258,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p $prefix/bin\ncp viz.sh $prefix/bin/viz\nchmod 755 $prefix/bin/viz";
+			shellScript = "#mkdir -p $prefix/bin\n#ln -f -s $DSTROOT/$INSTALL_PATH/$EXECUTABLE_FOLDER_PATH/viz.sh $prefix/bin/viz\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

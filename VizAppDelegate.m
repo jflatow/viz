@@ -11,6 +11,13 @@
 
 @implementation VizAppDelegate
 
++ (void) initialize {
+    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"NO", @"CommandLineInvocation", nil];
+    [defaults registerDefaults:appDefaults];
+}
+
 - (IBAction) openDocument:(id) sender {
     [dataSourceController openDataSource];
 }
@@ -21,6 +28,12 @@
 
 - (void) application:(NSApplication *) application openFiles:(NSArray *) filenames {
     [dataSourceController openDataSourcesForPaths:filenames];
+}
+
+- (void) applicationDidFinishLaunching:(NSNotification *) aNotification {
+    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+    if (![dataSourceController hasOpenedDataSources] && [defaults boolForKey:@"CommandLineInvocation"])
+        [dataSourceController openDataSourcesForPaths:[NSArray arrayWithObject:@"/dev/stdin"]];
 }
 
 - (void) applicationWillFinishLaunching:(NSNotification *) aNotification {

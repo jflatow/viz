@@ -29,10 +29,23 @@
 - (void) blink;
 - (void) clear;
 - (CGContextRef) context;
-- (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y;
 - (NSView *) printView;
 - (void) renderInImage:(NSImage *) image;
 - (NSImage *) renderInImage;
 - (void) setNeedsDisplay;
+
+# pragma mark Painting Methods 
+- (void) paintArcWithRadius:(CGFloat) radius 
+              andStartAngle:(CGFloat) startAngle 
+                andEndAngle:(CGFloat) endAngle 
+                        atX:(CGFloat) x 
+                       andY:(CGFloat) y;
+- (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y;
+- (void) paintRectWithLength:(CGFloat) length andWidth:(CGFloat) width atX:(CGFloat) x andY:(CGFloat) y;
+- (void) restoreGState;
+- (void) saveGState;
+- (void) setFillColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a;
+- (void) setStrokeColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a;
+
 
 @end

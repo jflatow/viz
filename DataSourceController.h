@@ -9,7 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DataSourceController : NSDocumentController {
+    BOOL hasOpenedDataSources;
 }
+
+@property BOOL hasOpenedDataSources;
 
 - (void) openDataSource;
 - (BOOL) openDataSourcesForPaths:(NSArray *) paths;

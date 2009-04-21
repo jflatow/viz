@@ -22,4 +22,7 @@
 
 - (id) initWithFields:(NSArray *) fields;
 - (id) initFromFileHandle:(NSFileHandle *) fileHandle;
+- (BOOL) contains:(NSString *) string;
+- (NSString *) stringRepresentation;
+
 @end

@@ -45,6 +45,7 @@ NSUInteger checkpointIndexForRecordIndex(NSUInteger recordIndex, NSUInteger chec
 - (Record *) pullRecord;
 - (NSUInteger) pullRecords:(NSUInteger) howMany;
 - (void) reset;
+- (void) searchForString:(NSString *) string;
 - (void) seekToIndex:(NSUInteger) theIndex;
 - (void) slowDown;
 - (void) speedUp;

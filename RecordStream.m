@@ -28,12 +28,12 @@ static NSUInteger DELTA_RPF = 10;
 + (void) initialize {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"300",           @"CheckpointDistance",
-                                 @"100",           @"FramesPerSecond",
-                                 @"100",           @"RecordsPerFrame",
-                                 @"YES",           @"SavesCheckpoints",
-                                 @"RecordPainter", @"RecordPainterClass",
-                                 @"Record",        @"RecordParserClass", nil];
+                                 @"300",                    @"CheckpointDistance",
+                                 @"250",                    @"FramesPerSecond",
+                                 @"1",                      @"RecordsPerFrame",
+                                 @"YES",                    @"SavesCheckpoints",
+                                 @"WebScriptRecordPainter", @"RecordPainterClass",
+                                 @"Record",                 @"RecordParserClass", nil];
     [defaults registerDefaults:appDefaults];
 }
 
@@ -112,7 +112,7 @@ static NSUInteger DELTA_RPF = 10;
 - (void) playTimerFired:(NSTimer *) timer {
     [self nextFrame];
     if (!playing || !currentRecord) {
-        playing = false;
+        [self pause];
         [timer invalidate];
     }
 }
@@ -147,6 +147,12 @@ static NSUInteger DELTA_RPF = 10;
     [recordPainter clearCanvas];
 }
 
+- (void) searchForString:(NSString *) string {
+    while (![currentRecord contains:string])
+        if (![self pullRecord])
+            return;
+}
+
 - (void) seekToIndex:(NSUInteger) theIndex {
     [self loadCheckpoint:[self checkpointForRecordIndex:theIndex]];
     if (theIndex > index)
@@ -154,13 +160,13 @@ static NSUInteger DELTA_RPF = 10;
 }
 
 - (void) slowDown {
-    if (recordsPerFrame >= DELTA_RPF)
-        recordsPerFrame -= DELTA_RPF;
+    if (recordsPerFrame > DELTA_RPF)
+        [self setRecordsPerFrame:recordsPerFrame - DELTA_RPF];
     DebugLog(@"recordsPerFrame: %d, framesPerSecond: %d", recordsPerFrame, framesPerSecond);
 }
 
 - (void) speedUp {
-    recordsPerFrame += DELTA_RPF;
+    [self setRecordsPerFrame:recordsPerFrame + DELTA_RPF];
     DebugLog(@"recordsPerFrame: %d, framesPerSecond: %d", recordsPerFrame, framesPerSecond);
 }
 
@@ -191,6 +197,14 @@ static NSUInteger DELTA_RPF = 10;
 
 - (double) frameInterval {
     return 1. / framesPerSecond;
+}
+
+- (void) setFramesPerSecond:(NSUInteger) theFramesPerSecond {
+    framesPerSecond = theFramesPerSecond;
+    if (playing) {
+        [self pause];
+        [self play];
+    }
 }
 
 @end

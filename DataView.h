@@ -9,7 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface DataView : NSView {}
+@class Canvas;
+
+@interface DataView : NSView {
+    Canvas *canvas;
+}
+
+@property Canvas *canvas;
 
 - (void) addLayer:(CALayer *) layer;
 - (void) resizeTo:(NSSize) size;
