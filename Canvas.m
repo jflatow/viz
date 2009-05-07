@@ -41,6 +41,16 @@
 
 #pragma mark Interface Methods
 
++ (NSArray *) objectToNSArray:(id) object {
+    id element, lengthObject = [object valueForKey:@"length"];
+    NSUInteger i, length = [lengthObject isKindOfClass:[NSNumber class]] ? [lengthObject unsignedIntValue] : 0;
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:length];
+    for (i = 0; i < length; i++)
+        if (element = [object objectAtIndex:i])
+            [array addObject:element];
+    return array;
+}
+
 - (id) initWithDataView:(DataView *) aDataView {
     if (self = [super init]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -129,6 +139,35 @@
 }
 
 #pragma mark Painting Methods
+- (void) clearRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextClearRect(context, CGRectMake(x, y, width, height));
+}
+
+- (void) fillRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextFillRect(context, CGRectMake(x, y, width, height));
+}
+
+- (void) fillRects:(id) rectsObject {
+    CGContextRef context = [self context];
+    NSArray *rect, *rects = [[self class] objectToNSArray:rectsObject];
+    CGRect *cgRects = malloc(sizeof(CGRect) * [rects count]);
+    CGFloat width, height, x, y;
+    NSUInteger i = 0;
+    for (id rectObject in rects) {
+        rect = [[self class] objectToNSArray:rectObject];
+        width  = [[rect objectAtIndex:0] floatValue];
+        height = [[rect objectAtIndex:1] floatValue];
+        x      = [[rect objectAtIndex:2] floatValue];
+        y      = [[rect objectAtIndex:3] floatValue];
+        cgRects[i++] = CGRectMake(x, y, width, height);        
+    }
+    CGContextFillRects(context, cgRects, [rects count]);
+    free(cgRects);
+}
+
+
 - (void) paintArcWithRadius:(CGFloat) radius 
               andStartAngle:(CGFloat) startAngle 
                 andEndAngle:(CGFloat) endAngle 
@@ -147,10 +186,10 @@
     CGContextDrawPath(context, kCGPathFillStroke);
 }
 
-- (void) paintRectWithLength:(CGFloat) length andWidth:(CGFloat) width atX:(CGFloat) x andY:(CGFloat) y {
+- (void) paintRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y {
     CGContextRef context = [self context];
     CGContextBeginPath(context);
-    CGContextAddRect(context, CGRectMake(x, y, length, width));
+    CGContextAddRect(context, CGRectMake(x, y, width, height));
     CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);    
 }
@@ -173,6 +212,11 @@
 
 - (void) setStrokeColorR:(CGFloat) r G:(CGFloat) g B:(CGFloat) b A:(CGFloat) a {
     CGContextSetRGBStrokeColor([self context], r, g, b, a);
+}
+
+- (void) strokeRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y {
+    CGContextRef context = [self context];
+    CGContextStrokeRect(context, CGRectMake(x, y, width, height));
 }
 
 #pragma mark CALayer Delegate Methods
