@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D21B1730FB7667900A21CC5 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 3D21B1720FB7667900A21CC5 /* COPYING */; };
 		3D27C0FE0F86910A00B33BA9 /* RecordPainter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */; };
 		3D3AA9E40FAA07630004B261 /* viz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AA9E30FAA07630004B261 /* viz.icns */; };
 		3D4CC1DA0F6460CB002E6409 /* RecordStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CC1D90F6460CB002E6409 /* RecordStream.m */; };
@@ -39,6 +40,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* viz_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viz_Prefix.pch; sourceTree = "<group>"; };
+		3D21B1720FB7667900A21CC5 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		3D27C0FC0F86910A00B33BA9 /* RecordPainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordPainter.h; sourceTree = "<group>"; };
 		3D27C0FD0F86910A00B33BA9 /* RecordPainter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordPainter.m; sourceTree = "<group>"; };
 		3D3AA9E30FAA07630004B261 /* viz.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = viz.icns; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				3D93FB220F5DA0F7008EDBC0 /* README */,
+				3D21B1720FB7667900A21CC5 /* COPYING */,
 			);
 			name = viz;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				3D93FB230F5DA0F7008EDBC0 /* README in Resources */,
 				3D93FF0C0F5F378E008EDBC0 /* DataSource.xib in Resources */,
 				3D3AA9E40FAA07630004B261 /* viz.icns in Resources */,
+				3D21B1730FB7667900A21CC5 /* COPYING in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "#mkdir -p $prefix/bin\n#ln -f -s $DSTROOT/$INSTALL_PATH/$EXECUTABLE_FOLDER_PATH/viz.sh $prefix/bin/viz\n";
+			shellScript = "mkdir -p $prefix/bin\ncat<<EOF > $prefix/bin/viz\n#!/bin/sh\n\n$DSTROOT/$INSTALL_PATH/$EXECUTABLE_FOLDER_PATH/viz -CommandLineInvocation YES \"\\$@\"\nEOF\nchmod 755 $prefix/bin/viz";
 		};
 /* End PBXShellScriptBuildPhase section */
 

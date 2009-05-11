@@ -1,22 +1,15 @@
 viz
 ===
-
+:Author:        Jared Flatow
+                http://jared.flatown.com
+:Copyright:     2009 Jared Flatow
 
 What is viz?
 ------------
 
-viz is a utility for visualizing streams of data records.
+viz is a utility for visualizing streams of data records, by applying a given paint function to each record in a stream.
 Although viz is designed to operate according to the UNIX philosophy, it is also intimately tied to Mac OS X.
 viz is tightly coupled to the OS X graphics layers, in order to provide high-quality visualization and interaction.
-
-
-Invoking viz
-------------
-
-It is possible to invoke multiple instances of viz (as is true of any OS X application).
-However, like most applications built for OS X, the usual behavior is to launch only a single instance.
-Instances of viz may be invoked with a particular set of options which will only take effect during that instance.
-If changes are made to user defaults for a particular instance after it has been launched, the changes will be persisted.
 
 
 Building viz
@@ -33,3 +26,71 @@ xcodebuild install prefix=/usr/local DSTROOT=/
 For more information on building xcode products see:
 http://developer.apple.com/documentation/developertools/conceptual/XcodeProjectManagement/070-Building_Products/chapter_8_section_1.html
 
+
+Invoking viz
+------------
+
+viz can be invoked as a normal OS X application, using the Finder or the open utility.
+When viz is installed according to the instructions above, a command line utility is also installed.
+Invoking viz through the command line allows for specifying options at startup, as well as for reading input from stdin.
+
+viz currently recognizes the following command line options:
+
+Canvas options:
+
+    -CanvasWidth                The width of the canvas.
+    -CanvasHeight               The height of the canvas.
+
+.. hint::
+   Use CanvasWidth and CanvasHeight to achieve a desired aspect ratio, since viz will enforce this ratio when resizing the window.
+
+RecordStream options:
+
+    -CheckpointDistance         The distance between saved Checkpoints.
+                                If set to zero or if SavesCheckpoints is set to NO, Checkpoints are not saved.
+    -FramesPerSecond            The number of frames per second when the animation is playing.
+                                Upper limits on this parameter will depend on the host CPU and the paint function itself.
+    -RecordsPerFrame            The number of records to paint in each frame.
+    -RecordPainterClass         The name of the painter class to use for painting records.
+                                Currently the default is WebScriptRecordPainter, which allows for paint functions written in Javascript.
+                                Future support aims to include painter classes which allow for paint functions written in Python and Ruby.
+    -RecordParserClass          The name of the class to use for parsing records.
+                                Currently the only class provided is the Record class itself, which allows for splitting records and fields on specific strings.
+    -SavesCheckpoints           Whether or not to save Checkpoints.
+                                Without Checkpoints, it is not possible to reverse through a RecordStream, however memory usage will not increase with the number of records.
+
+WebScriptRecordPainter options:
+
+    -PaintRecordScript          A string containing the paintRecord function.
+    -PaintRecordScriptFile      The name of a file containing the paintRecord function.
+
+Record parsing options:
+
+    -RecordSeparator            The string which separates records in the input.
+                                Default is "\n".
+    -FieldSeparator             The string which separates fields in the record.
+                                Default is "\t".
+
+.. note::
+   Specifying separator strings which contain only whitespace (from the command line) can be tricky, due to shell expansions.
+
+Miscellaneous:
+
+    -CommandLineInvocation      Flag to tell viz that it's being invoked from the command line.
+                                If using the builtin command line utility, there is no need to specify this option.
+
+Example::
+        
+        sort -k 3 recordsfile | viz -PaintRecordScriptFile paintRecord.js
+
+
+License information
+-------------------
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program (see the file "COPYING").
+If not, see <http://www.gnu.org/licenses/>.

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/path/to/viz -CommandLineInvocation YES "$@"
+$DSTROOT/$INSTALL_PATH/$EXECUTABLE_FOLDER_PATH/viz -CommandLineInvocation YES "$@"
 
 echo "Finish writing this script!"
 # get the path to viz:

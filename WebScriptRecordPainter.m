@@ -3,7 +3,7 @@
 //  viz
 //
 //  Created by Jared Flatow on 4/13/09.
-//  Copyright 2009 Jared Flato. All rights reserved.
+//  Copyright 2009 Jared Flatow. All rights reserved.
 //
 
 #import "WebScriptRecordPainter.h"
