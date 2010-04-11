@@ -118,6 +118,10 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
 
 #pragma mark Overrides of NSDocument Methods
 
++ (BOOL) canConcurrentlyReadDocumentsOfType:(NSString *) typeName {
+    return YES;
+}
+
 - (void) close {
     [recordStream close];
     [super close];

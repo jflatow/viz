@@ -45,6 +45,7 @@
                         atX:(CGFloat) x 
                        andY:(CGFloat) y;
 - (void) paintCircleWithRadius:(CGFloat) radius atX:(CGFloat) x andY:(CGFloat) y;
+- (void) paintLineFromX:(CGFloat) x1 andY:(CGFloat) y1 toX:(CGFloat) x2 andY:(CGFloat) y2;
 - (void) paintRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y;
 - (void) restoreGState;
 - (void) saveGState;

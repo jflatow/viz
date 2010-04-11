@@ -167,7 +167,6 @@
     free(cgRects);
 }
 
-
 - (void) paintArcWithRadius:(CGFloat) radius 
               andStartAngle:(CGFloat) startAngle 
                 andEndAngle:(CGFloat) endAngle 
@@ -186,11 +185,18 @@
     CGContextDrawPath(context, kCGPathFillStroke);
 }
 
+- (void) paintLineFromX:(CGFloat) x1 andY:(CGFloat) y1 toX:(CGFloat) x2 andY:(CGFloat) y2 {
+    CGContextRef context = [self context];
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, x1, y1);
+    CGContextAddLineToPoint(context, x2, y2);
+    CGContextDrawPath(context, kCGPathFillStroke);
+}
+
 - (void) paintRectWithWidth:(CGFloat) width andHeight:(CGFloat) height atX:(CGFloat) x andY:(CGFloat) y {
     CGContextRef context = [self context];
     CGContextBeginPath(context);
     CGContextAddRect(context, CGRectMake(x, y, width, height));
-    CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);    
 }
 
