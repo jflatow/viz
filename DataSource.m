@@ -123,16 +123,10 @@ static NSString *QuickTimeMovieType = @"com.apple.quicktime-movie";
     [super close];
 }
 
-- (void) printShowingPrintPanel:(BOOL) showPanels {
+- (NSPrintOperation *) printOperationWithSettings:(NSDictionary *) printSettings
+                                            error:(NSError **) outError {
     DebugLog(@"print document", nil);
-    NSPrintOperation *op = [NSPrintOperation
-                            printOperationWithView:[[recordStream canvas] printView]
-                            printInfo:[self printInfo]];
-    [op setShowPanels:showPanels];
-    [self runModalPrintOperation:op
-                        delegate:nil
-                  didRunSelector:NULL
-                     contextInfo:NULL];
+    return [NSPrintOperation printOperationWithView:[[recordStream canvas] printView]];
 }
 
 - (NSString *) windowNibName {

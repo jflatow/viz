@@ -40,7 +40,7 @@
 - (void) closeFile {
     [wrappedFileHandle closeFile];
     [temporaryTask terminate];
-    [[NSFileManager defaultManager] removeFileAtPath:temporaryPath handler:self];
+    [[NSFileManager defaultManager] removeItemAtPath:temporaryPath error:NULL];
 }
 
 - (unsigned long long) offsetInFile {

@@ -44,18 +44,18 @@
     return YES;
 }
 
-- (void)insertBacktab:(id)sender {
+- (void) insertBacktab:(id)sender {
     if ([[self window] firstResponder] == self)
         [[self window] selectPreviousKeyView:self];
 }
 
-- (void)insertTab:(id)sender {
+- (void) insertTab:(id)sender {
     if ([[self window] firstResponder] == self)
         [[self window] selectNextKeyView:self];
 }
 
 - (void) insertText:(id) text {
-    [[[self window] delegate] insertText:text];
+    [(NSResponder *)[[self window] delegate] insertText:text];
 }
 
 - (void) keyDown:(NSEvent *) theEvent {

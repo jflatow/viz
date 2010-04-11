@@ -13,6 +13,11 @@
 
 @synthesize hasOpenedDataSources;
 
+- (void) noteNewRecentDocumentURL:(NSURL *)aURL {
+	if ([aURL path] != @"/dev/stdin")
+		[super noteNewRecentDocumentURL: aURL];
+}
+
 - (void) openDataSource {
   NSOpenPanel *openPanel = [NSOpenPanel openPanel];
   [openPanel retain];
