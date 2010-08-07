@@ -1,0 +1,33 @@
+The Canvas
+==========
+
+The user-defined `paintRecord` function always receives the current *canvas* as its third argument.
+The canvas methods are exported directly to JavaScript using the `WebScripting protocol`_.
+Basically, this protocol defines a mapping between Objective-C messages and JavaScript functions.
+See `Canvas.h` and `Canvas.h` for details about the canvas internals.
+
+Listed below are the most interesting canvas functions for painting with viz::
+
+       height();
+       width();
+       blink();
+       clear();
+
+       clearRectWithWidth_andHeight_atX_andY_(width, height, x, y);
+       fillRectWithWidth_andHeight_atX_andY_(width, height, x, y);
+
+       paintArcWithRadius_andStartAngle_andEndAngle_atX_andY_(radius, startAngle, endAngle, x, y);
+       paintCircleWithRadius_atX_andY_(radius, x, y);
+
+       paintLineFromX_andY_toX_andY_(x1, y1, x2, y2);
+       paintRectWithWidth_andHeight_atX_andY_(width, height, x, y);
+
+       setFillColorR_G_B_A_(r, g, b, a);
+       setStrokeColorR_G_B_A_(r, g, b, a);
+
+       setText_(text);
+
+       strokeRectWithWidth_andHeight_atX_andY_(width, height, x, y);
+
+
+.. _WebScripting protocol: http://developer.apple.com/mac/library/documentation/Cocoa/Reference/WebKit/Protocols/WebScripting_Protocol/Reference/Reference.html
