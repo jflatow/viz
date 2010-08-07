@@ -63,6 +63,11 @@ WebScriptRecordPainter options:
 
     -PaintRecordScript          A string containing the paintRecord function.
     -PaintRecordScriptFile      The name of a file containing the paintRecord function.
+                                The file must contain a function with a particular signature, the default function is::
+
+                                        function paintRecord(record, index, canvas) {
+                                                 canvas.setText_(index + '\n' + record.fields.join('\n'));
+                                        }
 
 Record parsing options:
 
@@ -80,7 +85,7 @@ Miscellaneous:
                                 If using the builtin command line utility, there is no need to specify this option.
 
 Example::
-        
+
         sort -k 3 recordsfile | viz -PaintRecordScriptFile paintRecord.js
 
 
